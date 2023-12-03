@@ -1,10 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import math
+
 
 def circle(radius):
     """
     Вычисляет площадь круга по заданному радиусу.
     """
     return math.pi * radius ** 2
+
 
 def cylinder():
     """
@@ -29,11 +34,13 @@ def cylinder():
 
     print(result)
 
+
 def main():
     """
     Главная функция программы.
     """
     cylinder()
+
 
 if __name__ == '__main__':
     main()
