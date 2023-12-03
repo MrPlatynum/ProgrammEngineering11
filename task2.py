@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 import math
-
 
 def circle(radius):
     """
@@ -10,11 +6,10 @@ def circle(radius):
     """
     return math.pi * radius ** 2
 
-
 def cylinder():
     """
     Вычисляет площадь боковой поверхности цилиндра или полную площадь цилиндра
-    в зависимости от выбора пользователя.
+    в зависимости от выбора пользователя, используя match.
     """
     radius = float(input("Введите радиус цилиндра: "))
     height = float(input("Введите высоту цилиндра: "))
@@ -23,20 +18,22 @@ def cylinder():
     full_area = side_area + 2 * circle(radius)
 
     choice = input("Хотите получить только площадь боковой поверхности? (yes/no): ").lower()
-    if choice == 'yes':
-        print(f"Площадь боковой поверхности цилиндра: {side_area:.2f}")
-    elif choice == 'no':
-        print(f"Полная площадь цилиндра: {full_area:.2f}")
-    else:
-        print("Некорректный ввод. Пожалуйста, введите 'yes' или 'no'.")
+    
+    result = match choice:
+        case 'yes':
+            f"Площадь боковой поверхности цилиндра: {side_area:.2f}"
+        case 'no':
+            f"Полная площадь цилиндра: {full_area:.2f}"
+        case _:
+            "Некорректный ввод. Пожалуйста, введите 'yes' или 'no'."
 
+    print(result)
 
 def main():
     """
     Главная функция программы.
     """
     cylinder()
-
 
 if __name__ == '__main__':
     main()
