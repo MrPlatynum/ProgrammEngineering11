@@ -31,7 +31,7 @@ def list_trains(trains):
 
     for train in trains:
         print(line)
-        departure_time = train['время отправления'].strftime('%H:%M')  # Преобразование объекта time в строку
+        departure_time = train['время отправления'].strftime('%H:%M')
         print(
             f"| {train['название пункта назначения']:^35} | {train['номер поезда']:^15} | {departure_time:^25} |")
     print(line)
@@ -49,7 +49,7 @@ def select_trains(trains, search_time_str):
     print(f"Поезда, отправляющиеся после {search_time}:")
     for train in trains:
         train_time = train['время отправления']
-        if train_time >= search_time:
+        if train_time > search_time:
             result.append(train)
             found = True
 
