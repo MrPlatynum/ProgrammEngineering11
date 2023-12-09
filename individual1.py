@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from datetime import time
+
 def add_train(trains):
     """Добавляет информацию о поезде."""
     destination = input("Название пункта назначения: ")
     train_number = input("Номер поезда: ")
-    departure_time = input("Время отправления (в формате ЧЧ:ММ): ")
+    departure_time_str = input("Время отправления (в формате ЧЧ:ММ): ")
+
+    hours, minutes = map(int, departure_time_str.split(':'))
+
+    departure_time = time(hours, minutes)
 
     train = {
         'название пункта назначения': destination,
@@ -25,15 +31,20 @@ def list_trains(trains):
 
     for train in trains:
         print(line)
+        departure_time = train['время отправления'].strftime('%H:%M')  # Преобразование объекта time в строку
         print(
-            f"| {train['название пункта назначения']:^35} | {train['номер поезда']:^15} | {train['время отправления']:^25} |")
+            f"| {train['название пункта назначения']:^35} | {train['номер поезда']:^15} | {departure_time:^25} |")
     print(line)
 
 
-def select_trains(trains, search_time):
+def select_trains(trains, search_time_str):
     """Выводит поезда, отправляющиеся после указанного времени."""
     found = False
     result = []
+
+    hours, minutes = map(int, search_time_str.split(':'))
+
+    search_time = time(hours, minutes)
 
     print(f"Поезда, отправляющиеся после {search_time}:")
     for train in trains:
@@ -41,6 +52,7 @@ def select_trains(trains, search_time):
         if train_time >= search_time:
             result.append(train)
             found = True
+
     if found:
         return result
 
@@ -73,7 +85,10 @@ def main():
                 list_trains(trains)
             case 'select':
                 selected = select_trains(trains, input("Введите время для поиска поездов (в формате ЧЧ:ММ): "))
-                list_trains(selected)
+                if isinstance(selected, list):
+                    list_trains(selected)
+                else:
+                    print(selected)
             case 'help':
                 display_help()
             case _:
@@ -82,3 +97,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
